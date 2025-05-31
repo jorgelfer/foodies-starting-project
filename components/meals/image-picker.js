@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import styles from "./image-picker.module.css";
+import Image from "next/image";
 export default function ImagePicker({ label, name }) {
   const [pickedImage, setPickedImage] = useState();
 
@@ -28,6 +29,16 @@ export default function ImagePicker({ label, name }) {
     <div className={styles.picker}>
       <label htmlFor={name}>{label}</label>
       <div className={styles.controls}>
+        <div className={styles.preview}>
+          {!pickedImage && <p>No image picked yet.</p>}
+          {pickedImage && (
+            <Image
+              src={pickedImage}
+              alt="The image selected by the user"
+              fill
+            ></Image>
+          )}
+        </div>
         <input
           className={styles.input} // hide the default button
           type="file"
