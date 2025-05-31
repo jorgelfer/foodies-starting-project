@@ -3,6 +3,19 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({ params }) {
+  const meal = getMeal(params.mealSlug);
+
+  if (!meal) {
+    notFound();
+  }
+
+  return {
+    title: meal.title,
+    description: meal.summary,
+  };
+}
+
 // any dynamic path segment will be available in params
 export default function MealDetailPage({ params }) {
   const meal = getMeal(params.mealSlug);
